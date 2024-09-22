@@ -50,6 +50,11 @@ namespace Application1
             await SendText(textBox1.Text);
         }
 
+        /// <summary>
+        /// Prepares the content and send by API post
+        /// </summary>
+        /// <param name="text">Text that will be send</param>
+        /// <returns></returns>
         public async Task SendText(string text)
         {
             var content = new StringContent($"{{ \"text\": \"{text}\" }}", System.Text.Encoding.UTF8, "application/json");
