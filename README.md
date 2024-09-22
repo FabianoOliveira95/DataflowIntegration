@@ -25,4 +25,10 @@ This project contains the development of two applications that communicate synch
 ## Setup
 
 - Clone the repository: https://github.com/FabianoOliveira95/DataflowIntegration
-- 
+- Use Microsoft Visual Studio 2022 to open the project.
+- Install .NET 7.0 if it is not already installed
+
+## Run Applications
+
+- Set the Application2 project as the Startup Project in Visual Studio and click button Run.
+- Run one or more instances of Application 1 on the path: DataflowIntegration\Application1\bin\Release\net7.0-windows\Application1.exe
