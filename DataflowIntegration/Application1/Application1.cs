@@ -14,43 +14,54 @@ namespace Application1
             SetupSignalR();
         }
 
-        // Set up SignalR connection
+        public Application1(HttpClient httpClient)
+        {
+            InitializeComponent();
+            _httpClient = httpClient;
+        }
+
+        /// <summary>
+        /// Setup SignalR connection
+        /// </summary>
         private async void SetupSignalR()
         {
-            // Use o novo cliente de SignalR
             _hubConnection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:5000/syncHub")  // Certifique-se de usar o mesmo caminho configurado no servidor
+                .WithUrl("https://localhost:5000/syncHub")
                 .Build();
 
-            // Quando receber uma mensagem da Application 2, atualize o textBox2
             _hubConnection.On<string>("ReceiveMessage", (message) =>
             {
-                Invoke((Action)(() => textBox2.Text = message));  // Atualiza o textBox2 no thread da UI
+                Invoke((Action)(() => textBox2.Text = message));
             });
 
             try
             {
-                await _hubConnection.StartAsync();  // Inicie a conexão de forma assíncrona
-                MessageBox.Show("Conexão estabelecida com o SignalR Hub.");
+                await _hubConnection.StartAsync();
+                MessageBox.Show("Connection established with SignalR Hub.");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao conectar com o SignalR Hub: {ex.Message}");
+                MessageBox.Show($"Error when trying to connect with SignalR Hub: {ex.Message}");
             }
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var content = new StringContent($"{{ \"text\": \"{textBox1.Text}\" }}", System.Text.Encoding.UTF8, "application/json");
+            await SendText(textBox1.Text);
+        }
+
+        public async Task SendText(string text)
+        {
+            var content = new StringContent($"{{ \"text\": \"{text}\" }}", System.Text.Encoding.UTF8, "application/json");
             var response = await _httpClient.PostAsync("https://localhost:5000/api/application2", content);
 
             if (response.IsSuccessStatusCode)
             {
-                MessageBox.Show("Texto enviado com sucesso!");
+                MessageBox.Show("Message sent successfully!");
             }
             else
             {
-                MessageBox.Show($"Erro ao enviar texto: {response.StatusCode}");
+                MessageBox.Show($"Error when trying to send text: {response.StatusCode}");
             }
         }
     }

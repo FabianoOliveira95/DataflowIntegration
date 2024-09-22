@@ -12,9 +12,9 @@
     <title>Sync App</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <link rel="stylesheet" href="./css/index.css" />
 </head>
 <body>
-    <h2>Application 2</h2>
 
     <div>
         <label>Input:</label>
@@ -27,31 +27,6 @@
         <p id="outputText"></p>
     </div>
 
-    <script type="text/javascript">
-        // Configura o SignalR
-        var connection = new signalR.HubConnectionBuilder().withUrl("/syncHub").build();
-
-        connection.on("ReceiveMessage", function (message) {
-            $('#outputText').text(message);
-        });
-
-        connection.start().catch(function (err) {
-            return console.error(err.toString());
-        });
-
-        // Função para enviar texto via AJAX para a API
-        function sendText() {
-            var text = $('#inputText').val();
-            $.ajax({
-                url: '/api/application2',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ text: text }),
-                success: function () {
-                    $('#outputText').text(text);
-                }
-            });
-        }
-    </script>
+    <script src="~/js/index.js"></script>
 </body>
 </html>

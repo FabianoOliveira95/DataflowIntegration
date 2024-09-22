@@ -5,12 +5,20 @@
       "PackagePath": "staticwebassets\\Application2.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Fabiano Oliveira\\Source\\DataflowIntegration\\DataflowIntegration\\Application2\\wwwroot\\css\\index.css",
+      "PackagePath": "staticwebassets\\css\\index.css"
+    },
+    {
       "Id": "C:\\Users\\Fabiano Oliveira\\Source\\DataflowIntegration\\DataflowIntegration\\Application2\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\Fabiano Oliveira\\Source\\DataflowIntegration\\DataflowIntegration\\Application2\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Fabiano Oliveira\\Source\\DataflowIntegration\\DataflowIntegration\\Application2\\wwwroot\\js\\index.js",
+      "PackagePath": "staticwebassets\\js\\index.js"
     },
     {
       "Id": "C:\\Users\\Fabiano Oliveira\\Source\\DataflowIntegration\\DataflowIntegration\\Application2\\wwwroot\\js\\site.js",
