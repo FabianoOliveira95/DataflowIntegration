@@ -1,9 +1,20 @@
+using Application2;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Adiciona serviços ao container.
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR(); // Adiciona SignalR
 builder.Services.AddControllers().AddNewtonsoftJson(); // Adiciona suporte a JSON com Newtonsoft
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -21,8 +32,10 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseCors("AllowAll");
+
 app.MapRazorPages();
 app.MapControllers(); // Mapeia os controladores da API
-app.MapHub<Application2.SyncHub>("/syncHub"); // Mapeia o hub do SignalR
+app.MapHub<SyncHub>("/syncHub"); // Mapeia o hub do SignalR
 
 app.Run();

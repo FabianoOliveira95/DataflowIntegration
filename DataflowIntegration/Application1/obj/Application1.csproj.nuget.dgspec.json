@@ -40,9 +40,9 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "dependencies": {
-            "Microsoft.AspNet.SignalR.Client": {
+            "Microsoft.AspNetCore.SignalR.Client": {
               "target": "Package",
-              "version": "[2.4.3, )"
+              "version": "[8.0.8, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

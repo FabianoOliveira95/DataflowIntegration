@@ -1,11 +1,10 @@
-using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Application1
 {
     public partial class Application1 : Form
     {
         private HttpClient _httpClient;
-        private IHubProxy? _hubProxy;
         private HubConnection? _hubConnection;
 
         public Application1()
@@ -16,24 +15,43 @@ namespace Application1
         }
 
         // Set up SignalR connection
-        private void SetupSignalR()
+        private async void SetupSignalR()
         {
-            _hubConnection = new HubConnection("http://localhost:5000/signalr");
-            _hubProxy = _hubConnection.CreateHubProxy("SyncHub");
+            // Use o novo cliente de SignalR
+            _hubConnection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:5000/syncHub")  // Certifique-se de usar o mesmo caminho configurado no servidor
+                .Build();
 
-            // When receiving a message from Application 2, display in outputTextBox
-            _hubProxy.On<string>("ReceiveMessage", message =>
+            // Quando receber uma mensagem da Application 2, atualize o textBox2
+            _hubConnection.On<string>("ReceiveMessage", (message) =>
             {
-                Invoke((Action)(() => textBox2.Text = message));
+                Invoke((Action)(() => textBox2.Text = message));  // Atualiza o textBox2 no thread da UI
             });
 
-            _hubConnection.Start().Wait();
+            try
+            {
+                await _hubConnection.StartAsync();  // Inicie a conexão de forma assíncrona
+                MessageBox.Show("Conexão estabelecida com o SignalR Hub.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao conectar com o SignalR Hub: {ex.Message}");
+            }
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
             var content = new StringContent($"{{ \"text\": \"{textBox1.Text}\" }}", System.Text.Encoding.UTF8, "application/json");
-            await _httpClient.PostAsync("http://localhost:5000/api/sync", content);
+            var response = await _httpClient.PostAsync("https://localhost:5000/api/application2", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                MessageBox.Show("Texto enviado com sucesso!");
+            }
+            else
+            {
+                MessageBox.Show($"Erro ao enviar texto: {response.StatusCode}");
+            }
         }
     }
 }

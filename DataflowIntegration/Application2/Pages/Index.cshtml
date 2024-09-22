@@ -43,7 +43,7 @@
         function sendText() {
             var text = $('#inputText').val();
             $.ajax({
-                url: '/api/sync',
+                url: '/api/application2',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ text: text }),
