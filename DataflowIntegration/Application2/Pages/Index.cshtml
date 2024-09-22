@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Application 2";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+    <link rel="stylesheet" href="./css/index.css" />
+</head>
+<body>
+
+    <div>
+        <label>Input:</label>
+        <input type="text" id="inputText" />
+        <button onclick="sendText()">Send</button>
+    </div>
+
+    <div>
+        <label>Output:</label>
+        <p id="outputText"></p>
+    </div>
+
+    <script src="~/js/index.js"></script>
+</body>
+</html>
